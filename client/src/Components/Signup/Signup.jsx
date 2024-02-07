@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import axios from "axios";
-
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
-
 import { RxAvatar } from "react-icons/rx";
 import { server } from '../../server'
+import axios from "axios";
 
 
 
-const Login = () => {
+  const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -21,7 +19,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
+
     const config = {
       headers: { 'Content-Type': 'multipart/form-data' }
     };
@@ -32,13 +30,13 @@ const Login = () => {
     newForm.append('email', email);
     newForm.append('password', password);
     console.log(newForm)
-    axios.post(`${server}/create-user`, newForm, config) 
-    .then((res) => {
-    if(res.data.success === true){
-      navigate('/')
-    } 
-  })
-    .catch((err) => console.log(err));
+    axios.post(`${server}/create-user`, newForm, config)
+      .then((res) => {
+        if (res.data.success === true) {
+          navigate('/')
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
 
@@ -192,4 +190,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
