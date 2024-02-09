@@ -1,13 +1,42 @@
-import React, { useState } from "react";
-
+import React, { useState } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import styles from "../../styles/styles";
-import { Link } from "react-router-dom";
+import styles from '../../styles/styles';
+import { Link, useNavigate } from "react-router-dom"
+import axios from 'axios';
+import { server } from '../../server';
+import { toast } from 'react-toastify';
+
+
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [visible, setVisible] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [visible, setVisible] = useState(false)
+  const navigate = useNavigate()
+ 
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    axios.post(`${server}/login-user`, {
+      email: email,
+      password: password
+    },{
+      withCredentials:true
+    }
+    )
+      .then((res) => {
+        console.log(res);
+        toast.success('Login Successfully!')
+        navigate("/")
+      })
+      .catch((err) => {
+        toast.error('Login Failed!')
+      });
+  }
+
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -31,6 +60,7 @@ const Login = () => {
                   placeholder="Email"
                   type="email"
                   autoComplete="email"
+                  name='email'
                   required
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
@@ -49,9 +79,10 @@ const Login = () => {
               <div className="mt-1 relative">
                 <input
                   placeholder="Password"
-                  type="password"
+                  type={visible ? `text` : `password`}
                   autoComplete="current-password"
                   required
+                  name='password'
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                   className="appearance-none block w-full px-3 py-2 border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -94,20 +125,21 @@ const Login = () => {
                 </a>
               </div>
             </div>
-            
+
             <div>
               <button
+                onClick={handleSubmit}
                 type="submit"
-                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border"
+                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border bg-blue-500 text-white rounded-lg"
               >
                 Submit
               </button>
             </div>
-            
+
             <div className={`${styles.normalFlex} w-full`}>
               <h4>Don't have an Account? </h4>
               <Link to="/sign-up" className="text-blue-600 pl-2">
-                SignUp
+                Sign Up
               </Link>
             </div>
           </form>
@@ -117,4 +149,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login

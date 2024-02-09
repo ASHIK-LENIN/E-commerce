@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import { server } from '../../server'
 import axios from "axios";
+import { toast } from "react-toastify";
 
 
 
@@ -33,10 +34,16 @@ import axios from "axios";
     axios.post(`${server}/create-user`, newForm, config)
       .then((res) => {
         if (res.data.success === true) {
-          navigate('/')
+          toast.success(res.data.message)
+          setName("")
+          setPassword("")
+          setEmail("")
+          setAvatar()
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err.response.data.message)
+      });
   };
 
 
@@ -172,7 +179,7 @@ import axios from "axios";
             <div>
               <button
                 type="submit"
-                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border"
+                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border bg-blue-500 text-white rounded-lg"
               >
                 Submit
               </button>

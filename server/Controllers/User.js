@@ -6,7 +6,9 @@ const User = require("../Model/Users")
 const jwt = require('jsonwebtoken')
 const ErrorHandler = require('../utils/ErrorHandler')
 const sendMail = require("../utils/sendMail")
-const catchAsyncError = require('../middleware/catchAsyncError')
+const catchAsyncError = require('../middleware/catchAsyncError');
+const sendToken = require('../utils/jwtToken');
+const { isAuthenticated } = require('../middleware/auth')
 
 const router = express.Router();
 
@@ -79,7 +81,7 @@ router.get('/sample', (req, res, ) =>{
   
       const newUser = jwt.verify(
         activation_token,
-        process.env.ACTIVATION_SECRECT_KEY
+        process.env.ACTIVATION_SECRECT_KEY,
       );
   
       if (!newUser) {
@@ -93,7 +95,55 @@ router.get('/sample', (req, res, ) =>{
       return next(new ErrorHandler(err.message, 500))
     }
   
-  }))
+  }));// higher order function
+
+
+  //Login route
+
+  router.post('/login-user',catchAsyncError(async (req, res, next) => {
+    try {
+      const { email, password} = req.body;
+      
+      if(!email || !password ){
+        return next(new ErrorHandler('Please provide all fields', 400))
+      }
+
+      const user = await User.findOne({ email }).select('+password');
+     
+      if(!user){
+        return next(new ErrorHandler('Requested User not found', 400));
+
+      }
+
+      const isPasswordValid = await user.comparePassword(password);
+
+      if(!isPasswordValid){
+        return next(new ErrorHandler('Invalid Credentials', 400));
+      }
+      sendToken(user, 201, res)
+      
+    } catch (err) {
+      return next(new ErrorHandler(err.message, 500))
+    }
+  }));
+
+  // To get user details
+
+  router.get('/getuser', isAuthenticated, catchAsyncError(async(req, res, next) =>{
+try {
+  const user = await User.findById(req.user.id)
+
+  if(!user){
+    return next(new ErrorHandler('Requested user not found', 400));
+  }
+  res.status(200).json({
+    success : true,
+    user
+  });
+} catch (err) {
+  return next(new  ErrorHandler(err.message,500))
+}
+  }));
   
 
 module.exports = router;
