@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loadUser } from './redux/actions/user';
 import  store  from './redux/store';
+import HomePage from './Pages/HomePage';
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route  path='/home' element={<HomePage />}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path='/activation/:activation_token' element={<ActivationPage />} />
