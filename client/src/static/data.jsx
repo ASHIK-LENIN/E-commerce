@@ -212,7 +212,7 @@ export const categoriesData = [
   },
   {
     id: 4,
-    title: "Cloths",
+    title: "Clothes",
     subTitle: "",
     image_Url:
       "https://www.shift4shop.com/2015/images/industries/clothing/clothing-apparel.png",
@@ -229,13 +229,14 @@ export const categoriesData = [
     title: "Gifts",
     subTitle: "",
     image_Url:
-      "https://securecdn.pymnts.com/wp-content/uploads/2014/11/Gifts-Photo-700x489.jpg",
+      "https://img.freepik.com/free-photo/3d-render-gift-box-with-ribbon-present-package_107791-15904.jpg?size=626&ext=jpg",
   },
   {
     id: 7,
     title: "Pet Care",
     subTitle: "",
-    image_Url: "https://cdn.openpr.com/T/c/Tc15444071_g.jpg",
+    image_Url:
+      "https://img.freepik.com/free-vector/adopt-pet-concept_23-2148533665.jpg?size=626&ext=jpg&ga=GA1.1.1870881904.1707066381&semt=ais",
   },
   {
     id: 8,
@@ -271,11 +272,11 @@ export const productData = [
     image_Url: [
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://m.media-amazon.com/images/I/41At6UlfYJL._SY445_SX342_QL70_FMwebp_.jpg",
       },
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://m.media-amazon.com/images/I/41At6UlfYJL._SY445_SX342_QL70_FMwebp_.jpg",
       },
     ],
     shop: {
@@ -331,11 +332,11 @@ export const productData = [
     image_Url: [
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://m.media-amazon.com/images/I/41At6UlfYJL._SY445_SX342_QL70_FMwebp_.jpg",
       },
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://m.media-amazon.com/images/I/41At6UlfYJL._SY445_SX342_QL70_FMwebp_.jpg",
       },
     ],
     shop: {
